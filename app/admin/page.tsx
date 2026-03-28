@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import { notFound } from "next/navigation";
 import { getServerClient } from "@/lib/supabase";
 import type { Response } from "@/lib/supabase";
 
@@ -48,7 +49,14 @@ function Bar({ value, max, label }: { value: number; max: number; label: string 
   );
 }
 
-export default async function AdminPage() {
+export default async function AdminPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ key?: string }>;
+}) {
+  const { key } = await searchParams;
+  if (key !== process.env.ADMIN_KEY) notFound();
+
   const supabase = getServerClient();
   const { data, error } = await supabase
     .from("responses")

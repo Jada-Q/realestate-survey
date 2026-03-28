@@ -215,6 +215,10 @@ export default function SurveyPage() {
         <p className="text-center text-xs text-gray-400">
           感谢参与 · 结果整理后会在群里分享
         </p>
+
+        <p className="text-center text-xs text-gray-300 leading-relaxed">
+          您的回答匿名存储，仅用于市场研究，不会转让给第三方
+        </p>
       </form>
     </main>
   );
