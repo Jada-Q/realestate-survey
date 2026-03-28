@@ -54,6 +54,11 @@ export default async function AdminPage({
 }: {
   searchParams: Promise<{ key?: string }>;
 }) {
+  // 层级 2：运行时检查 env var 存在且无隐藏字符
+  if (!process.env.ADMIN_KEY) throw new Error("ADMIN_KEY not set");
+  if (process.env.ADMIN_KEY.includes("\n") || process.env.ADMIN_KEY.includes(" "))
+    throw new Error("ADMIN_KEY contains whitespace — check how it was set");
+
   const { key } = await searchParams;
   if (key !== process.env.ADMIN_KEY) notFound();
 
